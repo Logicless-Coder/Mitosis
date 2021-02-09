@@ -1,15 +1,16 @@
 var cells = [];
-var initialCount = 10;
+var initialCount = 20;
+var factor = 0.667;
 
 function setup() {
-	createCanvas(800, 800);
+	createCanvas(windowWidth, windowHeight);
 	for (var i = 0; i < initialCount; i++) {
 		cells.push(new Cell());
 	}
 }
 
 function draw() {
-	background(35);
+	background(25);
 	for (var i = 0; i < cells.length; i++) {
 		cells[i].move();
 		cells[i].show();
@@ -28,7 +29,7 @@ function Cell(pos, r) {
 
 	this.move = function () {
 		var vel = p5.Vector.random2D();
-		this.pos.add(vel.normalize().mult(200 / r));
+		this.pos.add(vel.normalize().mult((3 * 200) / r));
 	};
 
 	this.onClick = function () {
@@ -40,7 +41,7 @@ function Cell(pos, r) {
 	};
 
 	this.divide = function () {
-		return new Cell(this.pos, this.r / 2);
+		return new Cell(this.pos, this.r * factor);
 	};
 
 	this.show = function () {
